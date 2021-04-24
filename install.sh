@@ -124,3 +124,13 @@ git config --global merge.commit no
 git config --global merge.ff no
 
 source ~/.profile
+
+# crontab -l lists crontabs
+# adds a 15 min crontab to log project size
+touch /home/codio/log.csv
+sudo chmod 775 /home/codio/log.csv
+mv -f /home/codio/workspace/logger.sh /home/codio/logger.sh 
+sudo (crontab -l ; echo "*/15 * * * * /home/codio/logger.sh")| crontab -
+sudo service cron reload
+
+#TODO: https://linuxadmin.io/using-inotifywait-to-monitor-a-directory-and-move-files-to-another-directory/
