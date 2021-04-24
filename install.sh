@@ -52,6 +52,12 @@ rm -rf .bash_history
 rm -rf .git # delete the repository we have cloned (if any)
 
 echo
+echo "============ MOVING LOGGER TOOL ============"
+
+mv -f /home/codio/workspace/logger.sh /home/codio/logger.sh
+chmod +x /home/codio/logger.sh
+
+echo
 echo "============ INSTALLING PACKAGES ============"
 
 sudo add-apt-repository -y ppa:git-core/ppa
@@ -131,8 +137,6 @@ source ~/.profile
 # adds a 15 min crontab to log project size
 touch /home/codio/log.csv
 sudo chmod 775 /home/codio/log.csv
-mv -f /home/codio/workspace/logger.sh /home/codio/logger.sh
-chmod +x /home/codio/logger.sh
 
 # set up the crontab job in the sudo crontab needs to be run as root
 sudo -s <<EOF
@@ -147,3 +151,5 @@ touch /home/codio/changes.csv
 sudo chmod 775 /home/codio/changes.csv
 mv -f /home/codio/workspace/notify.sh /home/codio/notify.sh
 chmod +x /home/codio/notify.sh
+
+source ~/.profile

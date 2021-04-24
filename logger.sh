@@ -5,7 +5,7 @@
 DU=`du -sb /home/codio/workspace/`
 HOME=${DU%/home/codio/workspace/}
 DU2=`du -sb /home/codio/workspace/spa/uploads/`
-UPLOADS=${DU2%  /home/codio/workspace/spa/uploads/}
+UPLOADS=${DU2%/home/codio/workspace/spa/uploads/}
 SIZE=$(($HOME - $UPLOADS))
 TIMESTAMP=`date +"%s"`
 DATE=`date +"%D"`
