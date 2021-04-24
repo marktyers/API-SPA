@@ -3,7 +3,6 @@
 # if [ -v CODIO_HOSTNAME ]
 # then
 DU=`du -sb /home/codio/workspace/`
-# extract number
 IFS='   ' read -ra SIZE <<< "$DU"
 TIMESTAMP=`date +"%s"`
 DATE=`date +"%D"`

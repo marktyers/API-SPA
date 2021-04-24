@@ -58,7 +58,7 @@ sudo add-apt-repository -y ppa:git-core/ppa
 sudo apt update -y
 sudo apt upgrade -y
 
-sudo apt install -y psmisc lsof tree build-essential gcc g++ make jq curl git unzip
+sudo apt install -y psmisc lsof tree build-essential gcc g++ make jq curl git unzip inotify-tools
 sudo apt autoremove -y
 
 echo
@@ -133,4 +133,8 @@ mv -f /home/codio/workspace/logger.sh /home/codio/logger.sh
 sudo (crontab -l ; echo "*/15 * * * * /home/codio/logger.sh")| crontab -
 sudo service cron reload
 
-#TODO: https://linuxadmin.io/using-inotifywait-to-monitor-a-directory-and-move-files-to-another-directory/
+# and here is a different version using inotify events.
+
+touch /home/codio/changes.csv
+sudo chmod 775 /home/codio/changes.csv
+mv -f /home/codio/workspace/notify.sh /home/codio/notify.sh
