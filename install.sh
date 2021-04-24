@@ -29,27 +29,27 @@ fi
 
 sudo chown -R codio:codio .
 sudo chmod -R 775 .
-# echo
-# echo "============== ${green}DELETING${reset} OLD FILES ==================="
-# rm -rf *
-# rm -rf .*
-# rm -rf .guides
-# echo
-# echo "============== CLONING ${green}REPOSITORY${reset} ==================="
-# git clone https://github.coventry.ac.uk/web/Codio-Deno-SPA-Template.git .
-# chmod +x .githooks/*
-# git remote rm origin
-# rm -rf install.sh # delete this script so it can't be run from inside the project!
-# rm .codio
-# mv codio.json .codio
-# echo
-# echo "============= DELETING ${green}TEMPORARY FILES${reset} =============="
-# rm -rf *.db  # delete any old database files
-# rm -rf package-lock.json
-# rm -rf .settings
-# rm -rf .sqlite_history
-# rm -rf .bash_history
-# rm -rf .git # delete the repository we have cloned (if any)
+echo
+echo "============== ${green}DELETING${reset} OLD FILES ==================="
+rm -rf *
+rm -rf .*
+rm -rf .guides
+echo
+echo "============== CLONING ${green}REPOSITORY${reset} ==================="
+git clone https://github.coventry.ac.uk/web/Codio-Deno-SPA-Template-V2.git .
+chmod +x .githooks/*
+git remote rm origin
+rm -rf install.sh # delete this script so it can't be run from inside the project!
+rm .codio
+mv codio.json .codio
+echo
+echo "============= DELETING ${green}TEMPORARY FILES${reset} =============="
+rm -rf *.db  # delete any old database files
+rm -rf package-lock.json
+rm -rf .settings
+rm -rf .sqlite_history
+rm -rf .bash_history
+rm -rf .git # delete the repository we have cloned (if any)
 
 echo
 echo "============ INSTALLING PACKAGES ============"
