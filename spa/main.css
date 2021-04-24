@@ -1,11 +1,39 @@
 
+/* ========= THEME ========== */
+
+:root {
+		/* colour palette with names based on Material Design */
+		/* https://material.io/components */
+		/* https://saruwakakun.com/en/material-color */
+		/* brand colours */
+	--colorPrimary: #607D8B;						/* BG */
+	--colorPrimaryVariant: #455A64;			/* BG */
+	--colorOnPrimary: white;						/* FG */
+	--colorSecondary: #FDD835;					/* BG */
+	--colorSecondaryVariant: #A6B6BE;		/* BG */
+	--colorOnSecondary: white;					/* FG */
+		/* interface colours */
+	--colorBackground: #EDEDED;					/* BG */
+	--colorOnBackground: darkgray;			/* FG */
+	--colorSurface: white;							/* BG */
+	--colorOnSurface: #212121;					/* FG */
+	--colorError: pink;									/* BG */
+	--colorOnError: red;								/* FG */
+}
+
+@font-face {
+    font-family: droid-sans;
+    src: url(DroidSans.ttf) format("truetype");
+}
+
 body, h1, p2, p {
 	margin: 0;
 	padding: 0;
 }
 
 body {
-	font-family: verdana, arial, sans-serif;
+	font-family: droid-sans, verdana, arial, sans-serif;
+	background-color: var(--colorBackground);
 }
 
 /* ========= MESSAGE ========== */
@@ -33,7 +61,8 @@ aside {
 
 /* ========== HEADER ========== */
 header {
-	background-color: lightgray;
+	background-color: var(--colorPrimary);
+	color: var(--colorOnPrimary);
 	padding: 1em;
 	padding-bottom: 0.5em;
 }
@@ -43,7 +72,6 @@ header h1 {
 	margin-top: 0.3em;
 	font-size: 1.6em;
 	font-weight: normal;
-	color: #555;
 }
 
 header p {
@@ -51,6 +79,10 @@ header p {
 }
 
 /* =========== NAV ============ */
+
+nav {
+	visibility: hidden;
+}
 
 nav ul {
 	padding: 0;
@@ -60,7 +92,7 @@ nav ul {
 	flex-direction: row;
 	flex-wrap: nowrap;
 	align-items: center;
-	background-color: #CCCC;
+	background-color: var(--colorPrimary);
 	/* height: 3em; */
 	justify-content: flex-start;
 }
@@ -68,7 +100,8 @@ nav ul {
 nav li {
 	padding: 0;
 	margin: 0;
-	display: inline-block;
+	display: block;
+
 	flex-basis: 8em;
 	/* border: 1px solid grey; */
 	height: 2em;
@@ -80,29 +113,37 @@ nav li {
 
 nav li > a {
 	text-decoration: none;
-	color: black;
+	color: var(--colorOnPrimary);
 	cursor: pointer;
 }
 
 nav li:hover a {
-	color: white;
+/* 	background-color: var(--colorPrimaryVariant); */
+/* 	color: white; */
 }
 
 nav li:hover {
-	background-color: grey;
+/* 	background-color: grey; */
 }
 
 .currentpage {
-	background-color: white;
+	border-bottom:4px solid var(--colorSecondaryVariant);
+/* 	background-color: white; */
 /* 	background-color: #BBB; */
 }
 
 /* =========== MAIN =========== */
 
 main {
+	margin: 1em;
+	margin-top: 1em;
+}
+
+main > article {
 	max-width: 600px;
 	margin: auto;
-	background-color: #EEE;
+	background-color: var(--colorSurface);
+	box-shadow : 2px 2px 2px lightgrey;
 	margin-top: 1em;
 	padding: 1em;
 }
@@ -110,16 +151,20 @@ main {
 /* =========== FORM =========== */
 
 input[type="text"], input[type="email"], input[type="password"], textarea, select {
+	background-color: var(--colorBackground);
 	font-size: 0.8em;
 	width: 300px;
-	border: 1px solid #CCC;
+	border: none;
+	border-bottom: 1px solid var(--colorPrimary);
 	padding: 0.5em;
 	margin-top: 0.3em;
 }
 
 button {
-	background-color: grey;
-  border: 2px solid grey;
+	background-color: var(--colorPrimary);
+	border: 0;
+	border-radius: 0.3em;
+	box-shadow : 2px 2px 2px lightgrey;
   color: white;
 	padding: 0.5em 1em;
   text-align: center;

@@ -26,10 +26,11 @@ export async function triggerPageChange() {
 		await module.setup(node)
 	} catch(err) {
 		console.warn(`no script for "${page}" page or error in script`)
+		console.log(err)
 	}
-	const main = document.querySelector('main')
-	while (main.lastChild) main.removeChild(main.lastChild) // remove any content from the main element
-	main.appendChild(node) // insert the DOM fragment into the page
+	const article = document.querySelector('article')
+	while (article.lastChild) article.removeChild(article.lastChild) // remove any content from the article element
+	article.appendChild(node) // insert the DOM fragment into the page
 	highlightNav(page)
 	main.id = page
 }
@@ -51,6 +52,7 @@ export function highlightNav(page) {
 			element.classList.remove('currentpage')
 		}
 	})
+	document.querySelector('nav').style.visibility = 'visible'
 }
 
 export function customiseNavbar(items) {
@@ -62,6 +64,7 @@ export function customiseNavbar(items) {
 			element.style.display = 'none'
 		}
 	})
+	
 }
 
 /* FUNCTIONS USED IN FORMS */

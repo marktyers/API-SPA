@@ -3,7 +3,10 @@
 
 import { highlightNav,  triggerPageChange } from './util.js'
 
+window.addEventListener('popstate', triggerPageChange)
+
 document.querySelectorAll('nav a').forEach(element => element.addEventListener('click', router))
+
 router()
 
 async function router(event) {
@@ -11,5 +14,9 @@ async function router(event) {
 		event.preventDefault()
 		history.pushState(null, null, event.target.href)
 	}
-	await triggerPageChange()
+	try {
+		await triggerPageChange()
+	} catch(err) {
+		console.log(err)
+	}
 }
