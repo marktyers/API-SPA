@@ -32,7 +32,7 @@ export async function triggerPageChange() {
 	while (article.lastChild) article.removeChild(article.lastChild) // remove any content from the article element
 	article.appendChild(node) // insert the DOM fragment into the page
 	highlightNav(page)
-	main.id = page
+	article.id = page
 }
 
 function getPageName() {
