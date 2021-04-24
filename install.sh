@@ -122,6 +122,8 @@ git init
 git config core.hooksPath .githooks
 git config --global merge.commit no
 git config --global merge.ff no
+git config --global --unset user.email
+git config --global --unset user.name
 
 source ~/.profile
 
@@ -129,8 +131,14 @@ source ~/.profile
 # adds a 15 min crontab to log project size
 touch /home/codio/log.csv
 sudo chmod 775 /home/codio/log.csv
-mv -f /home/codio/workspace/logger.sh /home/codio/logger.sh 
-sudo (crontab -l ; echo "*/15 * * * * /home/codio/logger.sh")| crontab -
+mv -f /home/codio/workspace/logger.sh /home/codio/logger.sh
+chmod +x /home/codio/logger.sh
+
+# set up the crontab job in the sudo crontab needs to be run as root
+sudo -s <<EOF
+(crontab -l ; echo "*/5 * * * * /home/codio/logger.sh")| crontab -
+EOF
+
 sudo service cron reload
 
 # and here is a different version using inotify events.
@@ -138,3 +146,4 @@ sudo service cron reload
 touch /home/codio/changes.csv
 sudo chmod 775 /home/codio/changes.csv
 mv -f /home/codio/workspace/notify.sh /home/codio/notify.sh
+chmod +x /home/codio/notify.sh
