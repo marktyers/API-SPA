@@ -8,13 +8,13 @@
 		/* brand colours */
 	--colorPrimary: #607D8B;						/* BG */
 	--colorPrimaryVariant: #455A64;			/* BG */
-	--colorOnPrimary: white;						/* FG */
+	--colorOnPrimary: lightgray;						/* FG */
 	--colorSecondary: #FDD835;					/* BG */
 	--colorSecondaryVariant: #A6B6BE;		/* BG */
 	--colorOnSecondary: white;					/* FG */
 		/* interface colours */
 	--colorBackground: #EDEDED;					/* BG */
-	--colorOnBackground: darkgray;			/* FG */
+	--colorOnBackground: #333;			/* FG */
 	--colorSurface: white;							/* BG */
 	--colorOnSurface: #212121;					/* FG */
 	--colorError: pink;									/* BG */
@@ -23,7 +23,7 @@
 
 @font-face {
     font-family: droid-sans;
-    src: url(DroidSans.ttf) format("truetype");
+    src: url(DroidSans.ttf) format('truetype');
 }
 
 body, h1, p2, p {
@@ -45,13 +45,11 @@ aside {
 	top: 155px;
 	margin-left:auto;
 	margin-right:auto;
-	max-width: 600px;
-
-	background-color: white;
-	border: 0.1em solid grey;
-	padding: 2em;
-	color: grey;
-	font-size: 1em;
+	max-width: 200px;	
+	background-color: var(--colorPrimary);
+	padding: 0.5em;
+	color: var(--colorOnPrimary);
+	font-size: 0.8em;
 	border-radius: 0.2em;
 }
 
@@ -64,18 +62,20 @@ header {
 	background-color: var(--colorPrimary);
 	color: var(--colorOnPrimary);
 	padding: 1em;
-	padding-bottom: 0.5em;
+	padding-bottom: 0.1em;
 }
 
 header h1 {
-	margin-bottom: 0.5em;
+	margin-bottom: 0.3em;
 	margin-top: 0.3em;
-	font-size: 1.6em;
+/* 	font-size: 1.6em; */
+	font-size: max(3vw, 1.2em);
 	font-weight: normal;
 }
 
 header p {
-	margin-bottom: 0.5em;
+	margin-bottom: 0em;
+	font-size: max(1.5vw, 1em);
 }
 
 /* =========== NAV ============ */
@@ -148,12 +148,22 @@ main > article {
 	padding: 1em;
 }
 
+main p {
+	font-size: 0.8em;
+	color: var(--colorOnBackground);
+}
+
 /* =========== FORM =========== */
+
+form p {
+	margin-top: 1em;
+}
 
 input[type="text"], input[type="email"], input[type="password"], textarea, select {
 	background-color: var(--colorBackground);
 	font-size: 0.8em;
-	width: 300px;
+	min-width: 240px;
+	max-width: 400px;
 	border: none;
 	border-bottom: 1px solid var(--colorPrimary);
 	padding: 0.5em;
@@ -165,8 +175,9 @@ button {
 	border: 0;
 	border-radius: 0.3em;
 	box-shadow : 2px 2px 2px lightgrey;
-  color: white;
-	padding: 0.5em 1em;
+  color: var(--colorOnPrimary);
+	padding: 0.8em 1.3em;
+	margin: 0.2em;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -180,10 +191,3 @@ button:hover {
 }
 
 /* ========== FOOTER ========== */
-
-footer {
-	position: absolute;
-	bottom: 0;
-	background-color: #DDD;
-	padding: 0;
-}
