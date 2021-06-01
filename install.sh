@@ -153,3 +153,9 @@ mv -f /home/codio/workspace/notify.sh /home/codio/notify.sh
 chmod +x /home/codio/notify.sh
 
 source ~/.profile
+
+TIMESTAMP=`date +"%s"`
+DATE=`date +"%D"`
+TIME=`date +"%T"`
+LOG="$TIMESTAMP,$DATE,$TIME"
+echo $LOG >> /home/codio/reset_history.csv
