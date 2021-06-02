@@ -1,10 +1,11 @@
 
 /* util.js */
 
+import { Status } from 'https://deno.land/x/oak@v6.5.1/mod.ts'
 import { Base64 } from 'https://deno.land/x/bb64/mod.ts'
 import { Md5 } from 'https://deno.land/std/hash/md5.ts'
 
-export async function setHeaders(context, next) {
+export function setHeaders(context, next) {
 	context.response.headers.set('Content-Type', 'application/json')
 	context.response.headers.set('charset', 'utf-8')
 	context.response.headers.set('Access-Control-Allow-Origin', '*')
@@ -35,7 +36,7 @@ export async function staticFiles(context, next) {
   const isFile = await fileExists(path)
   if (isFile) {
 		// file exists therefore we can serve it
-    await send(context, context.request.url.pathname, {
+    await context.send(context, context.request.url.pathname, {
       root: `${Deno.cwd()}/static`
     })
   } else {
@@ -73,7 +74,7 @@ async function fileExists(path) {
 
 export function saveFile(base64String, username) {
 	console.log('save file')
-	let [ metadata, base64Image ] = base64String.split(';base64,')
+	const [ metadata, base64Image ] = base64String.split(';base64,')
 	console.log(metadata)
 	const extension = metadata.split('/').pop()
 	console.log(extension)

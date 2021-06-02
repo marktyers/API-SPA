@@ -24,3 +24,12 @@ You can use the registration option to create more accounts.
 
 The secure page allows you to upload files to the server, this will need to be replaced with the functionality required by your assigned topic.
 
+## Linting
+
+The Deno Lint tool only works for code written for Deno so in this assignment it should only be run on the contents of the `api/` directory.
+
+When checking for code quality the following command will be run:
+
+```
+$ deno lint --unstable api
+```
