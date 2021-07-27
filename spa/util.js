@@ -18,16 +18,18 @@ export function loadPage(page) {
 export async function triggerPageChange() {
 	console.log('pageChange')
 	const page = getPageName()
+	console.log(`trying to load page: ${page}`)
+	// get a reference to the correct template element
 	const template = document.querySelector(`template#${page}`) ?? document.querySelector('template#home')
-	console.log(template)
 	const node = template.content.cloneNode(true) // get a copy of the template node
 	try {
 		const module = await import(`./js/${page}.js`)
-		await module.setup(node)
+		await module.setup(node) // the setup script may need to modify the template fragment before it is displayed
 	} catch(err) {
 		console.warn(`no script for "${page}" page or error in script`)
 		console.log(err)
 	}
+	// replace contents of the page with the correct template
 	const article = document.querySelector('article')
 	while (article.lastChild) article.removeChild(article.lastChild) // remove any content from the article element
 	article.appendChild(node) // insert the DOM fragment into the page

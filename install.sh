@@ -52,10 +52,12 @@ rm -rf .bash_history
 rm -rf .git # delete the repository we have cloned (if any)
 
 echo
-echo "============ MOVING LOGGER TOOL ============"
+echo "============ MOVING LOGGER TOOLS ============"
 
 mv -f /home/codio/workspace/logger.sh /home/codio/logger.sh
 chmod +x /home/codio/logger.sh
+mv -f /home/codio/workspace/setenv /home/codio/setenv
+chmod +x /home/codio/setenv
 
 echo
 echo "============ INSTALLING PACKAGES ============"
@@ -153,6 +155,9 @@ mv -f /home/codio/workspace/notify.sh /home/codio/notify.sh
 chmod +x /home/codio/notify.sh
 
 source ~/.profile
+
+# ask student for their details and store as env vars
+/home/codio/setenv
 
 TIMESTAMP=`date +"%s"`
 DATE=`date +"%D"`
