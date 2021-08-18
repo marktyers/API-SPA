@@ -21,14 +21,16 @@ async function login() {
 	const formData = new FormData(event.target)
 	const data = Object.fromEntries(formData.entries())
 	const token = 'Basic ' + btoa(`${data.user}:${data.pass}`)
-	const response = await secureGet('/accounts', token)
+	console.log('making call to secureGet')
+	const response = await secureGet('/api/accounts', token)
 	console.log(response)
 	if(response.status === 200) {
 		localStorage.setItem('username', response.json.data.username)
 		localStorage.setItem('authorization', token)
-		showMessage('you are logged in')
+		showMessage(`you are logged in as ${response.json.data.username}`)
 		await loadPage('foo')
 	} else {
 		document.querySelector('input[name="pass"]').value = ''
+		showMessage(response.json.errors[0].detail)
 		}
 }

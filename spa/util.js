@@ -86,16 +86,20 @@ export function file2DataURI(file) {
   })
 }
 
-/* FUNCTIONS TO MAKE API CALLS */
+/* FUNCTIONS TO MAKE API CALLS
+ * all API calls support the JSON:API specification */
 
 export async function secureGet(url, token) {
+	console.log('secure get')
 	const options = {
 		method: 'GET',
 		headers: {
 			'Authorization': token,
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/vnd.api+json',
+			'Accept': 'application/vnd.api+json'
 		}
 	}
+	console.log(options)
 	const response = await fetch(url, options)
 	const json = await response.json()
 	return { status: response.status, json: json }

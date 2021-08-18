@@ -13,6 +13,7 @@ export async function setup(node) {
 				localStorage.removeItem('username')
 				localStorage.removeItem('authorization')
 				loadPage('login')
+				showMessage('you are logged out')
 			} else {
 				loadPage('foo')
 			}

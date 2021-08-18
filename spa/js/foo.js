@@ -18,6 +18,7 @@ export async function setup(node) {
 }
 
 async function uploadData(event) {
+	console.log('func UPLOAD DATA')
 	event.preventDefault()
 	const element = document.querySelector('input[name="file"]')
 	console.log(element)
@@ -25,11 +26,11 @@ async function uploadData(event) {
 	file.base64 = await file2DataURI(file)
 	file.user = localStorage.getItem('username')
 	console.log(file)
-	const url = '/files'
+	const url = '/api/files'
 	const options = {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-Type': 'application/vnd.api+json',
 			'Authorization': localStorage.getItem('authorization')
 		},
 		body: JSON.stringify(file)
