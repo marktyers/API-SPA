@@ -66,7 +66,7 @@ sudo add-apt-repository -y ppa:git-core/ppa
 sudo apt update -y
 sudo apt upgrade -y
 
-sudo apt install -y psmisc lsof tree build-essential gcc g++ make jq curl git unzip inotify-tools
+sudo apt install -y psmisc lsof tree build-essential gcc g++ make jq curl git unzip inotify-tools dnsutils
 sudo apt autoremove -y
 
 echo
