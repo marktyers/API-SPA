@@ -47,3 +47,11 @@ When checking for code quality the following command will be run:
 ```
 $ deno lint --unstable api
 ```
+
+## Pushing to GitHub
+
+If you can't push to the University GitHub server (you are not prompted for the username/password and the connection times out) please run the following command which will print the Codio box external IP address and send this to your module leader.
+
+```
+$ dig +short myip.opendns.com @resolver1.opendns.com
+```
