@@ -30,5 +30,4 @@ async function addContent(node) {
 		fragment.querySelector('p').innerText = quote.quote
 		node.appendChild(fragment)
 	}
-	//const node = template.content.cloneNode(true) // get a copy of the template node
 }

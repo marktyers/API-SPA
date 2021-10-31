@@ -2,7 +2,7 @@
 
 import { Application, send, Status } from "https://deno.land/x/oak@v6.5.1/mod.ts";
 // status codes https://deno.land/std@0.82.0/http/http_status.ts
-import { Md5 } from 'https://deno.land/std@0.89.0/hash/md5.ts'
+// import { Md5 } from 'https://deno.land/std@0.89.0/hash/md5.ts'
 import { extractCredentials, getEtag, setHeaders } from "./api/modules/util.js";
 import { login } from "./api/modules/accounts.js";
 
@@ -62,7 +62,7 @@ app.use(async (context, next) => {
 			try {
 				const credentials = extractCredentials(token)
 				console.log(credentials)
-				const username = await login(credentials)
+				await login(credentials)
 			} catch(err) {
 				console.log('ERROR')
 				console.log(err)

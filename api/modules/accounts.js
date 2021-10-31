@@ -23,6 +23,6 @@ export async function register(credentials) {
 	credentials.pass = await hash(credentials.pass, salt)
 	const sql = `INSERT INTO accounts(user, pass) VALUES("${credentials.user}", "${credentials.pass}")`
 	console.log(sql)
-	const records = await db.query(sql)
+	await db.query(sql)
 	return true
 }
