@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SETUP HEROKU DEPLOYMENT TUTORIAL
+# INSTALLATION SCRIPT FOR THE API/SPA TEMPLATE
 
 red=`tput setaf 1`
 green=`tput setaf 2`
@@ -153,6 +153,7 @@ touch /home/codio/changes.csv
 sudo chmod 775 /home/codio/changes.csv
 mv -f /home/codio/workspace/notify.sh /home/codio/notify.sh
 chmod +x /home/codio/notify.sh
+mv -f /home/codio/workspace/stats.js /home/codio/stats.js
 
 source ~/.profile
 
