@@ -12,10 +12,8 @@ Project settings: make sure **protect dynamic ports** is switched off.
 This template is designed to be installed inside a Codio box. To to this, open the terminal and run the following command:
 
 ```
-$ curl -sL xxx | bash
+$ curl -sL https://bit.ly/3ngLmVo | bash
 ```
-
-> xxx is the url of the raw view of the `install.sh` file.
 
 This will configure the box ready for you to start development.
 
@@ -42,16 +40,14 @@ The secure page allows you to upload files to the server, this will need to be r
 
 The Deno Lint tool only works for code written for Deno so in this assignment it should only be run on the contents of the `api/` directory.
 
-When checking for code quality the following command will be run:
+The linter needs to load the settings from the config file so you need to run it using the following command:
 
 ```
-$ deno lint --unstable api
+$ deno lint --config deno.json
 ```
 
-## Pushing to GitHub
+## Frequently-Asked Questions
 
-If you can't push to the University GitHub server (you are not prompted for the username/password and the connection times out) please run the following command which will print the Codio box external IP address and send this to your module leader.
+If you get stuck your first step should be to see if this is a problem that others have already encountered. There is a comprehensive FAQ document that gives solutions to the most common problems.
 
-```
-$ dig +short myip.opendns.com @resolver1.opendns.com
-```
+[Frequently-Asked Questions](https://docs.google.com/document/d/1b_lTA_ay0Yi46annuNnZ6fK1nIe_ddszmPua1Wwvfa0/edit?usp=sharing)
