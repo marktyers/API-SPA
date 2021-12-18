@@ -66,7 +66,7 @@ sudo add-apt-repository -y ppa:git-core/ppa
 sudo apt update -y
 sudo apt upgrade -y
 
-sudo apt install -y psmisc lsof tree build-essential gcc g++ make jq curl git unzip inotify-tools dnsutils lcov
+sudo apt install -y psmisc lsof tree build-essential gcc g++ make jq curl git unzip inotify-tools dnsutils lcov tilde
 sudo apt autoremove -y
 
 echo
@@ -132,6 +132,7 @@ git config --global merge.commit no
 git config --global merge.ff no
 git config --global --unset user.email
 git config --global --unset user.name
+git config --global core.editor tilde
 
 source ~/.profile
 
@@ -158,7 +159,7 @@ mv -f /home/codio/workspace/stats.js /home/codio/stats.js
 source ~/.profile
 
 # ask student for their details and store as env vars
-/home/codio/setenv
+# /home/codio/setenv
 
 TIMESTAMP=`date +"%s"`
 DATE=`date +"%D"`
