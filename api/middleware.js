@@ -11,79 +11,119 @@ import router from './routes.js'
 
 const app = new Application()
 
-/*
- * this middleware performs a series of checks on all API calls and sends the correct response
- * if a problem has been detected
- */
-app.use(async (context, next) => {
-	console.log('middleware running')
-	// if the call is to the API it must include the correct Content-Type
-	if(context.request.url.pathname.includes("/api/") && !(context.request.url.pathname.includes("/api/accounts") && context.request.method === 'POST')) {
-		console.log('API CALL')
-		console.log(context.request.headers.get('Content-Type'))
-		context.response.headers.set('Content-Type', 'application/vnd.api+json')
-		if(context.request.headers.get('Content-Type') !== 'application/vnd.api+json') {
-			console.log('wrong Content-Type')
-			context.response.status = 415
-			context.response.body = JSON.stringify(
-				{
-					errors: [
-						{
-							title: '415 Unsupported Media Type',
-							detail: 'This API supports the JSON:API specification, Content-Type must be application/vnd.api+json'
-						}
-					]
-				}
-				, null, 2)
-			return
-		}
-		// if the authorization header is missing
-		if(context.request.headers.get('Authorization') === null) {
-			console.log('missing Authorization header')
-			context.response.status = 401
-			context.response.body = JSON.stringify(
-				{
-					errors: [
-						{
-							title: '201 Unauthorized',
-							detail: 'the API uses HTTP Basic Auth and requires a correctly-formatted Authorization header'
-						}
-					]
-				}
+async function checkContentType(context, next) {
+	console.log('middleware: checkContentType')
+
+	const path = context.request.url.pathname
+	const contentType = context.request.headers.get('Content-Type')
+
+	// if not an API call content-type not important
+	if(path.includes('/api/') == false) {
+		await next()
+		return // we don't want to continue this script on unwind
+	}
+
+	if(contentType !== 'application/vnd.api+json') {
+		console.log('wrong Content-Type')
+		context.response.status = 415
+		context.response.body = JSON.stringify(
+			{
+				errors: [
+					{
+						title: '415 Unsupported Media Type',
+						detail: 'This API supports the JSON:API specification, Content-Type must be application/vnd.api+json'
+					}
+				]
+			}
 			, null, 2)
 			return
-		}
-		// unless the API call is to register an account, the auth data must match an account
-		if(!context.request.url.pathname.includes('/register')) {
-			console.log('not a call to /register')
-			const token = context.request.headers.get('Authorization')
-			console.log(`auth: ${token}`)
-			try {
-				const credentials = extractCredentials(token)
-				console.log(credentials)
-				await login(credentials)
-			} catch(err) {
-				console.log('ERROR')
-				console.log(err)
-				console.log(`msg: ${err.message}`)
-				context.response.status = 401
-				context.response.body = JSON.stringify(
-					{
-						errors: [
-							{
-								title: '401 Unauthorized!',
-								detail: err.message
-							}
-						]
-					}
-				, null, 2)
-				return
-			}
-		}
 	}
-	console.log('MIDDLEWARE ENDS')
-  await next();
-})
+
+	await next()
+	return
+}
+
+async function authHeaderPresent(context, next) {
+	console.log('middleware: authHeaderPresent')
+
+	const path = context.request.url.pathname
+	const method = context.request.method
+
+	// if not an API call content-type not important
+	if(path.includes('/api/') == false) {
+		await next()
+		return // we don't want to continue this script on unwind
+	}
+
+	if(path === '/api/accounts' && method === 'POST') {
+		console.log('account registration so auth header not needed')
+		await next()
+		return
+	}
+
+	if(context.request.headers.get('Authorization') === null) {
+		console.log('missing Authorization header')
+		context.response.status = 401
+		context.response.body = JSON.stringify(
+			{
+				errors: [
+					{
+						title: '201 Unauthorized',
+						detail: 'the API uses HTTP Basic Auth and requires a correctly-formatted Authorization header'
+					}
+				]
+			}
+		, null, 2)
+		return
+	}
+
+	await next()
+	return
+}
+
+async function validCredentials(context, next) {
+
+	const path = context.request.url.pathname
+	const method = context.request.method
+	const token = context.request.headers.get('Authorization')
+
+	// if not an API call content-type not important
+	if(path.includes('/api/') == false) {
+		console.log('not an API call so content-type not important')
+		await next()
+		return // we don't want to continue this script on unwind
+	}
+
+	// registering a new account so auth header not needed
+	if(path === '/api/accounts' && method === 'POST') {
+		await next()
+		return
+	}
+
+	try {
+		const credentials = extractCredentials(token)
+		console.log(credentials)
+		await login(credentials)
+	} catch(err) {
+		console.log('ERROR')
+		console.log(err)
+		console.log(`msg: ${err.message}`)
+		context.response.status = 401
+		context.response.body = JSON.stringify(
+			{
+				errors: [
+					{
+						title: '401 Unauthorized!',
+						detail: err.message
+					}
+				]
+			}
+			, null, 2)
+		return
+	}
+
+	await next()
+}
 
 async function staticFiles(context, next) {
 	const path = `${Deno.cwd()}/spa/${context.request.url.pathname}`
@@ -109,19 +149,30 @@ async function errorHandler(context, next) {
     console.log(`${method} ${path}`);
     await next();
   } catch (err) {
-    console.log(err);
-    context.response.status = Status.InternalServerError;
-    const msg = { err: err.message };
-    context.response.body = JSON.stringify(msg, null, 2);
-  }
+    console.log(err)
+    context.response.status = Status.InternalServerError
+		context.response.body = JSON.stringify(
+			{
+				errors: [
+					{
+						title: '500 Internal Server error',
+						detail: err.message
+					}
+				]
+			}
+			, null, 2)
+		context.response.body = JSON.stringify(msg, null, 2)
+	}
+	return
 }
 
-console.log(Deno.cwd())
-
+app.use(errorHandler)
+app.use(checkContentType)
+app.use(authHeaderPresent)
+app.use(validCredentials)
 app.use(staticFiles)
 app.use(router.routes())
 app.use(router.allowedMethods())
 app.use(setHeaders)
-app.use(errorHandler)
 
 export default app
