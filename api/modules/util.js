@@ -2,8 +2,8 @@
 /* util.js */
 
 import { Status } from 'https://deno.land/x/oak@v6.5.1/mod.ts'
-import { Base64 } from 'https://deno.land/x/bb64/mod.ts'
-import { Md5 } from 'https://deno.land/std/hash/md5.ts'
+import { Base64 } from 'https://deno.land/x/bb64@1.1.0/mod.ts'
+import { Md5 } from 'https://deno.land/std@0.129.0/hash/md5.ts'
 
 export function setHeaders(context, next) {
 	console.log('setHeaders')
@@ -60,7 +60,7 @@ export async function errorHandler(context, next) {
 }
 
 // checks if file exists
-async function fileExists(path) {
+export async function fileExists(path) {
   try {
     const stats = await Deno.lstat(path)
     return stats && stats.isFile
