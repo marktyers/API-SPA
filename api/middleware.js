@@ -1,7 +1,7 @@
 
 /* middleware.js */
 
-import { Application, send, Status } from 'https://deno.land/x/oak@v6.5.1/mod.ts'
+import { Application, send, Status } from 'https://deno.land/x/oak@v10.4.0/mod.ts'
 // status codes https://deno.land/std@0.82.0/http/http_status.ts
 // import { Md5 } from 'https://deno.land/std@0.89.0/hash/md5.ts'
 import { extractCredentials, fileExists, getEtag, setHeaders } from './modules/util.js'
