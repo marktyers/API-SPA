@@ -15,6 +15,18 @@ export function loadPage(page) {
 	triggerPageChange()
 }
 
+export async function router(event) {
+	if(event) { // has this been triggered by the click event?
+		event.preventDefault()
+		history.pushState(null, null, event.target.href)
+	}
+	try {
+		await triggerPageChange()
+	} catch(err) {
+		console.log(err)
+	}
+}
+
 export async function triggerPageChange() {
 	console.log('pageChange')
 	const page = getPageName()
@@ -33,6 +45,8 @@ export async function triggerPageChange() {
 	const article = document.querySelector('article')
 	while (article.lastChild) article.removeChild(article.lastChild) // remove any content from the article element
 	article.appendChild(node) // insert the DOM fragment into the page
+	// make sure any links added to the content trigger the SPA router script
+	document.querySelectorAll('article a').forEach(element => element.addEventListener('click', router))
 	highlightNav(page)
 	article.id = page
 }

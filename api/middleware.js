@@ -4,7 +4,7 @@
 import { Application, send, Status } from 'https://deno.land/x/oak@v10.4.0/mod.ts'
 // status codes https://deno.land/std@0.82.0/http/http_status.ts
 // import { Md5 } from 'https://deno.land/std@0.89.0/hash/md5.ts'
-import { extractCredentials, fileExists, getEtag, setHeaders } from './modules/util.js'
+import { extractCredentials, fileExists, getEtag } from './modules/util.js'
 import { login } from './modules/accounts.js'
 
 import router from './routes.js'
@@ -22,7 +22,7 @@ async function checkContentType(context, next) {
 		await next()
 		return // we don't want to continue this script on unwind
 	}
-
+	context.response.headers.set('content-type', 'application/vnd.api+json')
 	if(contentType !== 'application/vnd.api+json') {
 		console.log('wrong Content-Type')
 		context.response.status = 415
@@ -134,6 +134,7 @@ async function staticFiles(context, next) {
 		const etag = await getEtag(path)
 		console.log(`etag: ${etag}`)
 		context.response.headers.set('ETag', etag)
+		// if(pathname.includes('.css')) context.response.headers.set('Content-Type', 'text/css')
 		await send(context, context.request.url.pathname, {
 			root: `${Deno.cwd()}/spa`,
 		})
@@ -166,13 +167,24 @@ async function errorHandler(context, next) {
 	return
 }
 
+async function setHeaders(context, next) {
+	console.log('setHeaders')
+	// context.response.headers.set('content-type', 'application/vnd.api+json')
+	context.response.headers.set('charset', 'utf-8')
+	context.response.headers.set('Access-Control-Allow-Origin', '*')
+	context.response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+	context.response.headers.set('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
+	context.response.headers.set('Access-Control-Allow-Credentials', true)
+	await next()
+}
+
 app.use(errorHandler)
+app.use(setHeaders)
 app.use(checkContentType)
 app.use(authHeaderPresent)
 app.use(validCredentials)
 app.use(staticFiles)
 app.use(router.routes())
 app.use(router.allowedMethods())
-app.use(setHeaders)
 
 export default app

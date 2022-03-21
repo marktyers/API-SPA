@@ -11,6 +11,7 @@ const router = new Router()
 // the routes defined here
 router.get('/', async context => {
 	console.log('GET /')
+	context.response.headers.set('Content-Type', 'text/html')
 	const data = await Deno.readTextFile('spa/index.html')
 	context.response.body = data
 })
@@ -19,6 +20,7 @@ router.get('/api/accounts', async context => {
 	console.log('GET /api/accounts')
 	const token = context.request.headers.get('Authorization')
 	console.log(`auth: ${token}`)
+	context.response.headers.set('Content-Type', 'application/json')
 	try {
 		const credentials = extractCredentials(token)
 		console.log(credentials)
@@ -88,7 +90,9 @@ router.post('/api/files', async context => {
 router.get("/(.*)", async context => {      
 // 	const data = await Deno.readTextFile('static/404.html')
 // 	context.response.body = data
+	console.log('send index.html if nothing else matches')
 	const data = await Deno.readTextFile('spa/index.html')
+	context.response.headers.set('Content-Type', 'text/html')
 	context.response.body = data
 })
 

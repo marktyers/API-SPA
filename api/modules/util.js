@@ -5,17 +5,6 @@ import { Status } from 'https://deno.land/x/oak@v6.5.1/mod.ts'
 import { Base64 } from 'https://deno.land/x/bb64@1.1.0/mod.ts'
 import { Md5 } from 'https://deno.land/std@0.129.0/hash/md5.ts'
 
-export function setHeaders(context, next) {
-	console.log('setHeaders')
-	context.response.headers.set('Content-Type', 'application/vnd.api+json')
-	context.response.headers.set('charset', 'utf-8')
-	context.response.headers.set('Access-Control-Allow-Origin', '*')
-	context.response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
-	context.response.headers.set('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
-	context.response.headers.set('Access-Control-Allow-Credentials', true)
-	next()
-}
-
 export function extractCredentials(token) {
 	console.log('checkAuth')
 	if(token === undefined) throw new Error('no auth header')
@@ -96,3 +85,11 @@ export async function getEtag(path) {
 	const etag = md5.update(uid).toString()
 	return etag
 }
+
+export function delay(ms) { 
+   return new Promise((res) => 
+     setTimeout(() => { 
+       res() 
+     }, ms)
+   );
+ }
