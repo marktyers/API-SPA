@@ -1,10 +1,10 @@
 
 /* routes.js */
 
-import { Router } from 'https://deno.land/x/oak@v6.5.1/mod.ts'
+import { Router } from 'oak'
 
-import { extractCredentials, saveFile } from './modules/util.js'
-import { login, register } from './modules/accounts.js'
+import { extractCredentials, saveFile } from 'util'
+import { login, register } from 'accounts'
 
 const router = new Router()
 

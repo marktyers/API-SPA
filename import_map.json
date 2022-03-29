@@ -1,0 +1,12 @@
+
+{
+	"imports": {
+		"bcrypt": "https://deno.land/x/bcrypt@v0.3.0/mod.ts",
+		"oak": "https://deno.land/x/oak@v10.4.0/mod.ts",
+		"bb64": "https://deno.land/x/bb64@1.1.0/mod.ts",
+		"md5": "https://deno.land/std@0.129.0/hash/md5.ts",
+		"accounts": "./api/modules/accounts.js",
+		"db": "./api/modules/db.js",
+		"util": "./api/modules/util.js"
+	}
+}

@@ -1,11 +1,11 @@
 
 /* middleware.js */
 
-import { Application, send, Status } from 'https://deno.land/x/oak@v10.4.0/mod.ts'
+import { Application, send, Status } from 'oak'
 // status codes https://deno.land/std@0.82.0/http/http_status.ts
 // import { Md5 } from 'https://deno.land/std@0.89.0/hash/md5.ts'
-import { extractCredentials, fileExists, getEtag } from './modules/util.js'
-import { login } from './modules/accounts.js'
+import { extractCredentials, fileExists, getEtag } from 'util'
+import { login } from 'accounts'
 
 import router from './routes.js'
 
