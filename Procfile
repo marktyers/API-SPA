@@ -1,1 +1,1 @@
-web: deno run --allow-all --unstable api/index.js --port=${PORT}
+web: deno run --allow-all index.js
