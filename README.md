@@ -46,6 +46,15 @@ The linter needs to load the settings from the config file so you need to run it
 $ deno lint --config deno.json
 ```
 
+## The Database
+
+This Codio box comes with MySQL installed and ready to use. In addition to the **root** account there is a low-privilege account called **websiteuser** that is used by the API.
+
+- **root** password: `p455w0rd`
+- **websiteuser** password: `websitepassword
+
+You will need to log in to the **mysql-client** CLI tool using the **root** account which will allow you to modify the database schema.
+
 ## Frequently-Asked Questions
 
 If you get stuck your first step should be to see if this is a problem that others have already encountered. There is a comprehensive FAQ document that gives solutions to the most common problems.
