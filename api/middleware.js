@@ -6,6 +6,7 @@ import { Application, send, Status } from 'oak'
 // import { Md5 } from 'md5'
 import { extractCredentials, fileExists, getEtag } from 'util'
 import { login } from 'accounts'
+import { contentType } from 'mediaTypes'
 
 import router from 'routes'
 
@@ -134,8 +135,10 @@ async function staticFiles(context, next) {
 		const etag = await getEtag(path)
 		console.log(`etag: ${etag}`)
 		context.response.headers.set('ETag', etag)
-		if(path.includes('.css')) context.response.headers.set('Content-Type', 'text/css')
-		if(path.includes('.js')) context.response.headers.set('Content-Type', 'application/javascript')
+		const ext = context.request.url.pathname.split('.').pop()
+		console.log(`EXT: ${ext}`)
+		const mime = contentType(ext)
+		context.response.headers.set('Content-Type', mime)
 		await send(context, context.request.url.pathname, {
 			root: `${Deno.cwd()}/spa`,
 		})

@@ -1,7 +1,7 @@
 
 /* navigation.js */
 
-import { router, highlightNav, getPageName } from './util.js'
+import { router } from './util.js'
 
 window.addEventListener('popstate', router)
 
