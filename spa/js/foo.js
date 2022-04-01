@@ -1,7 +1,9 @@
 
 /* foo.js */
 
-import { customiseNavbar, file2DataURI, loadPage, secureGet, showMessage } from '../util.js'
+console.log('FOO')
+
+import { customiseNavbar, file2DataURI, loadPage, router, secureGet, showMessage } from '../util.js'
 
 export async function setup(node) {
 	console.log('FOO: setup')
@@ -9,7 +11,10 @@ export async function setup(node) {
 		console.log(node)
 		document.querySelector('header p').innerText = 'Foobar'
 		customiseNavbar(['home', 'logout', 'foo'])
-		if(localStorage.getItem('authorization') === null) loadPage('login')
+		if(localStorage.getItem('authorization') === null) {
+			history.pushState(null, null, '/login')
+			await router()
+		}
 		// there is a token in localstorage
 		node.querySelector('form').addEventListener('submit', await uploadData)
 	} catch(err) {

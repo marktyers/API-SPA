@@ -1,33 +1,7 @@
 
 /* util.js */
 
-export function showMessage(message, delay = 3000) {
-	console.log(message)
-	document.querySelector('aside p').innerText = message
-	document.querySelector('aside').classList.remove('hidden')
-	setTimeout( () => document.querySelector('aside').classList.add('hidden'), delay)
-}
-
-/* NAV FUNCTIONS */
-
-export function loadPage(page) {
-	history.pushState(null, null, `/${page}`)
-	triggerPageChange()
-}
-
-export async function router(event) {
-	if(event) { // has this been triggered by the click event?
-		event.preventDefault()
-		history.pushState(null, null, event.target.href)
-	}
-	try {
-		await triggerPageChange()
-	} catch(err) {
-		console.log(err)
-	}
-}
-
-export async function triggerPageChange() {
+export async function router() {
 	console.log('pageChange')
 	const page = getPageName()
 	console.log(`trying to load page: ${page}`)
@@ -51,7 +25,33 @@ export async function triggerPageChange() {
 	article.id = page
 }
 
-function getPageName() {
+export function showMessage(message, delay = 3000) {
+	console.log(message)
+	document.querySelector('aside p').innerText = message
+	document.querySelector('aside').classList.remove('hidden')
+	setTimeout( () => document.querySelector('aside').classList.add('hidden'), delay)
+}
+
+/* NAV FUNCTIONS */
+
+export async function loadPage(page) {
+	history.pushState(null, null, `/${page}`)
+	await router()
+}
+
+// export async function router(event) {
+// 	if(event) { // has this been triggered by the click event?
+// 		event.preventDefault()
+// 		history.pushState(null, null, event.target.href)
+// 	}
+// 	try {
+// 		await triggerPageChange()
+// 	} catch(err) {
+// 		console.log(err)
+// 	}
+// }
+
+export function getPageName() {
 	console.log(window.location.pathname)
 	const path = window.location.pathname.replace('/', '')
 	let page = path ? path : 'home'

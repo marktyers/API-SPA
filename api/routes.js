@@ -93,6 +93,9 @@ router.get("/(.*)", async context => {
 	console.log('send index.html if nothing else matches')
 	const data = await Deno.readTextFile('spa/index.html')
 	context.response.headers.set('Content-Type', 'text/html')
+	const path = `${Deno.cwd()}/spa/${context.request.url.pathname}`
+	if(path.includes('.js')) context.response.headers.set('Content-Type', 'text/javascript')
+	if(path.includes('.css')) context.response.headers.set('Content-Type', 'text/css')
 	context.response.body = data
 })
 

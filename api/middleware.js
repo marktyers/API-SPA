@@ -134,7 +134,8 @@ async function staticFiles(context, next) {
 		const etag = await getEtag(path)
 		console.log(`etag: ${etag}`)
 		context.response.headers.set('ETag', etag)
-		// if(pathname.includes('.css')) context.response.headers.set('Content-Type', 'text/css')
+		if(path.includes('.css')) context.response.headers.set('Content-Type', 'text/css')
+		if(path.includes('.js')) context.response.headers.set('Content-Type', 'application/javascript')
 		await send(context, context.request.url.pathname, {
 			root: `${Deno.cwd()}/spa`,
 		})
