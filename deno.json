@@ -1,11 +1,12 @@
 {
 	"importMap": "import_map.json",
 	"tasks": {
-		"run": "deno run --allow-all index.js"
+		"run": "deno run --allow-all index.js",
+		"test": "deno test --allow-all --import-map api/modules/test/import_map.json api/test/unit/"
 	},
   "lint": {
     "files": {
-      "exclude": ["tmp/", "stats.js", "spa/"]
+      "exclude": ["tmp/", "stats.js", "spa/", "api/test/", "api/modules/test/"]
     },
     "rules": {
       "tags": ["recommended"],

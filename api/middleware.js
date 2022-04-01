@@ -3,11 +3,11 @@
 
 import { Application, send, Status } from 'oak'
 // status codes https://deno.land/std@0.82.0/http/http_status.ts
-// import { Md5 } from 'https://deno.land/std@0.89.0/hash/md5.ts'
+// import { Md5 } from 'md5'
 import { extractCredentials, fileExists, getEtag } from 'util'
 import { login } from 'accounts'
 
-import router from './routes.js'
+import router from 'routes'
 
 const app = new Application()
 
@@ -18,7 +18,7 @@ async function checkContentType(context, next) {
 	const contentType = context.request.headers.get('Content-Type')
 
 	// if not an API call content-type not important
-	if(path.includes('/api/') == false) {
+	if(path.includes('/api/') === false) {
 		await next()
 		return // we don't want to continue this script on unwind
 	}
@@ -50,7 +50,7 @@ async function authHeaderPresent(context, next) {
 	const method = context.request.method
 
 	// if not an API call content-type not important
-	if(path.includes('/api/') == false) {
+	if(path.includes('/api/') === false) {
 		await next()
 		return // we don't want to continue this script on unwind
 	}
@@ -88,7 +88,7 @@ async function validCredentials(context, next) {
 	const token = context.request.headers.get('Authorization')
 
 	// if not an API call content-type not important
-	if(path.includes('/api/') == false) {
+	if(path.includes('/api/') === false) {
 		console.log('not an API call so content-type not important')
 		await next()
 		return // we don't want to continue this script on unwind
@@ -162,7 +162,6 @@ async function errorHandler(context, next) {
 				]
 			}
 			, null, 2)
-		context.response.body = JSON.stringify(msg, null, 2)
 	}
 	return
 }

@@ -22,7 +22,7 @@ This will configure the box ready for you to start development.
 To run the project:
 
 ```
-$ deno run --allow-all index.js
+$ deno task run
 ```
 
 ## Accounts
@@ -40,10 +40,10 @@ The secure page allows you to upload files to the server, this will need to be r
 
 The Deno Lint tool only works for code written for Deno so in this assignment it should only be run on the contents of the `api/` directory.
 
-The linter needs to load the settings from the config file so you need to run it using the following command:
+The linter uses the settings from the `deno.json` config file:
 
 ```
-$ deno lint --config deno.json
+$ deno lint
 ```
 
 ## The Database
