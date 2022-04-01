@@ -5,11 +5,11 @@
 integration tests for the /accounts route
 */
 
-import { superoak } from 'https://deno.land/x/superoak@4.7.0/mod.ts'
-import { assert, assertEquals, assertNotEquals } from 'https://deno.land/std@0.129.0/testing/asserts.ts'
+import { superoak } from 'superOak'
+import { assert, assertEquals, assertNotEquals } from 'asserts'
 
-import app from './../../middleware.js'
-import { delay } from '../../modules/util.js'
+import app from 'middleware'
+import { delay } from 'util'
 
 // this is needed for the other tests to pass!
 // should not be async.

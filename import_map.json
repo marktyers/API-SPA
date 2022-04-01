@@ -8,8 +8,10 @@
 		"md5": "https://deno.land/std@0.129.0/hash/md5.ts",
 		"mysql": "https://deno.land/x/mysql@v2.10.2/mod.ts",
 		"statusCodes": "https://deno.land/std@0.130.0/http/http_status.ts",
+		"superOak": "https://deno.land/x/superoak@4.7.0/mod.ts",
 		"accounts": "./api/modules/accounts.js",
 		"db": "./api/modules/db.js",
+		"middleware": "./api/middleware.js",
 		"routes": "./api/routes.js",
 		"util": "./api/modules/util.js"
 	}

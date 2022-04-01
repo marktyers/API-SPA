@@ -22,8 +22,8 @@ const connectionData = {
 }
 
 const conn = connectionData[home]
-console.log(conn)
+// console.log(conn)
 
 const db = await new Client().connect(conn)
-
+console.log('connection to database established')
 export { db }

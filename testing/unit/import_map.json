@@ -1,0 +1,10 @@
+
+{
+	"imports": {
+		"asserts": "https://deno.land/std@0.130.0/testing/asserts.ts",
+		"bcrypt": "https://deno.land/x/bcrypt@v0.3.0/mod.ts",
+		"delay": "https://deno.land/x/delay@v0.2.0/mod.ts",
+		"accounts": "../../api/modules/accounts.js",
+		"db": "./mocks/db.js"
+	}
+}
