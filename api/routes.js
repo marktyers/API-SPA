@@ -87,17 +87,5 @@ router.post('/api/files', async context => {
 	}
 })
 
-router.get("/(.*)", async context => {      
-// 	const data = await Deno.readTextFile('static/404.html')
-// 	context.response.body = data
-	console.log('send index.html if nothing else matches')
-	const data = await Deno.readTextFile('spa/index.html')
-	context.response.headers.set('Content-Type', 'text/html')
-	const path = `${Deno.cwd()}/spa/${context.request.url.pathname}`
-	if(path.includes('.js')) context.response.headers.set('Content-Type', 'text/javascript')
-	if(path.includes('.css')) context.response.headers.set('Content-Type', 'text/css')
-	context.response.body = data
-})
-
 export default router
 

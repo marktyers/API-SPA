@@ -128,6 +128,7 @@ async function staticFiles(context, next) {
 	const path = `${Deno.cwd()}/spa/${context.request.url.pathname}`
 	const isFile = await fileExists(path)
 	if (isFile) {
+		console.info('static file')
 		// file exists therefore we can serve it
 		const etag = await getEtag(path)
 		context.response.headers.set('ETag', etag)
@@ -146,7 +147,7 @@ async function errorHandler(context, next) {
   try {
     const method = context.request.method;
     const path = context.request.url.pathname;
-    console.log(`${method} ${path}`);
+    console.log(`\n${method} ${path}`);
     await next();
   } catch (err) {
     console.log(err)
@@ -176,13 +177,22 @@ async function setHeaders(context, next) {
 	await next()
 }
 
+// last middle ware function serves up the html page
+async function defaultResponse(context) {
+	console.log('default page')
+	const data = await Deno.readTextFile('spa/index.html')
+	context.response.headers.set('Content-Type', 'text/html')
+	context.response.body = data
+}
+
 app.use(errorHandler)
 app.use(setHeaders)
+app.use(staticFiles)
 app.use(checkContentType)
 app.use(authHeaderPresent)
 app.use(validCredentials)
-app.use(staticFiles)
 app.use(router.routes())
 app.use(router.allowedMethods())
+app.use(defaultResponse)
 
 export default app
