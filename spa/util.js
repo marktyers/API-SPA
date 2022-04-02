@@ -39,27 +39,16 @@ export async function loadPage(page) {
 	await router()
 }
 
-// export async function router(event) {
-// 	if(event) { // has this been triggered by the click event?
-// 		event.preventDefault()
-// 		history.pushState(null, null, event.target.href)
-// 	}
-// 	try {
-// 		await triggerPageChange()
-// 	} catch(err) {
-// 		console.log(err)
-// 	}
-// }
-
-export function getPageName() {
-	console.log(window.location.pathname)
-	const path = window.location.pathname.replace('/', '')
+export function getPageName(path = window.location.pathname) {
+	path = path.replace('/', '')
 	let page = path ? path : 'home'
 	console.log(`page: ${page}`)
 	return page
 }
 
-export function highlightNav(page) {
+// adds a highlight to the navigation link for the view current being displayed
+export function highlightNav(page = 'home') {
+	console.log('HIGHLIGHT NAV', page)
 	document.querySelectorAll('nav li').forEach(element => {
 		const link = element.querySelector('a').href.replace(`${window.location.origin}/`, '') || 'home'
 		if(link === page) {
@@ -71,6 +60,7 @@ export function highlightNav(page) {
 	document.querySelector('nav').style.visibility = 'visible'
 }
 
+// takes an array of views that should be visible and hides the others
 export function customiseNavbar(items) {
 	document.querySelectorAll('nav li').forEach(element => {
 		const link = element.querySelector('a').href.replace(`${window.location.origin}/`, '') || 'home'

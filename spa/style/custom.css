@@ -1,10 +1,13 @@
 
 /* this is where you will define your stylesheet for non-touchscreen devices */
 
-body {
-	color: red;
-}
-
+/* style applied to the navigation links that should not be visible */
 .hidden {
 	display: none;
+}
+
+/* style applied to the li for the current view */
+.currentpage > a {
+	font-weight: bold;
+	text-decoration: none;
 }
