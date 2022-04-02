@@ -129,12 +129,9 @@ async function staticFiles(context, next) {
 	const isFile = await fileExists(path)
 	if (isFile) {
 		// file exists therefore we can serve it
-		console.log(path)
 		const etag = await getEtag(path)
-		console.log(`etag: ${etag}`)
 		context.response.headers.set('ETag', etag)
 		const ext = context.request.url.pathname.split('.').pop()
-		console.log(`EXT: ${ext}`)
 		const mime = contentType(ext)
 		context.response.headers.set('Content-Type', mime)
 		await send(context, context.request.url.pathname, {

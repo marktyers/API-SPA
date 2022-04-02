@@ -3,7 +3,7 @@
 
 import { Router } from 'oak'
 
-import { extractCredentials, saveFile } from 'util'
+import { extractCredentials, dataURLtoFile } from 'util'
 import { login, register } from 'accounts'
 
 const router = new Router()
@@ -63,7 +63,7 @@ router.post('/api/files', async context => {
 		const body  = await context.request.body()
 		const data = await body.value
 		console.log(data)
-		saveFile(data.base64, data.user)
+		dataURLtoFile(data.base64, data.user)
 		context.response.status = 201
 		context.response.body = JSON.stringify(
 			{
