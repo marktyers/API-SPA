@@ -2,8 +2,6 @@
 /* middleware.js */
 
 import { Application, send, Status } from 'oak'
-// status codes https://deno.land/std@0.82.0/http/http_status.ts
-// import { Md5 } from 'md5'
 import { extractCredentials, fileExists, getEtag } from 'util'
 import { login } from 'accounts'
 import { contentType } from 'mediaTypes'

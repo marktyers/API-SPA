@@ -1,7 +1,7 @@
 
 /* util.js */
 
-import { Status } from 'oak'
+import { etag, Status } from 'oak'
 import { Base64 } from 'bb64'
 import { Md5 } from 'md5'
 
@@ -77,19 +77,6 @@ export function saveFile(base64String, username) {
 
 export async function getEtag(path) {
 	const stat = await Deno.stat(path)
-	const mtime = stat.mtime
-	const timestamp = Date.parse(mtime)
-	const size = stat.size
-	const uid = (`${path}:${timestamp}:${size}`)
-	const md5 = new Md5()
-	const etag = md5.update(uid).toString()
-	return etag
+	const tag = await etag.calculate(stat)
+	return tag
 }
-
-export function delay(ms) { 
-   return new Promise((res) => 
-     setTimeout(() => { 
-       res() 
-     }, ms)
-   );
- }
