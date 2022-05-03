@@ -16,7 +16,7 @@ export async function router() {
 		console.log(err)
 	}
 	// replace contents of the page with the correct template
-	const article = document.querySelector('article')
+	const article = document.querySelector('main')
 	while (article.lastChild) article.removeChild(article.lastChild) // remove any content from the article element
 	article.appendChild(node) // insert the DOM fragment into the page
 	// make sure any links added to the content trigger the SPA router script

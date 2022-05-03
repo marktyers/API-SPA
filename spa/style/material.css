@@ -139,7 +139,7 @@ main {
 	margin-top: 1em;
 }
 
-main > article {
+main {
 	max-width: 600px;
 	margin: auto;
 	background-color: var(--colorSurface);
