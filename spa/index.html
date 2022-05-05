@@ -4,8 +4,8 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Single Page App</title>
-		<link type="text/css" rel="stylesheet" href="style/main.css">
-		<script type="module" src="./router.js"></script>
+		<link type="text/css" rel="stylesheet" href="/style/main.css">
+		<script type="module" src="/router.js"></script>
 	</head>
 	<body>
 		<aside class="hidden"><p></p></aside>
@@ -49,10 +49,19 @@
 			<p><button>OK</button><button>Cancel</button></p>
 	</template>
 	<template id="foo">
+		<h2>Uploading File Demo</h2>
 		<form name="upload" method="post">
 			<p><label for="pass">Choose a file</label><br /><input type="file" name="file" /></p>
 			<p><button type="submit">Upload</button></p>
 		</form>
+		<h2>Useful Data</h2>
+		<p>You can pass data to a page using different parts of the url:</p>
+		<ul>
+		<li id="href">href</li>
+		<li id="pathname">path</li>
+		<li id="search">search</li>
+		<li id="hash">hash</li>
+		</ul>
 	</template>
 	<template id="quote">
 		<section>

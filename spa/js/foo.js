@@ -17,6 +17,11 @@ export async function setup(node) {
 		}
 		// there is a token in localstorage
 		node.querySelector('form').addEventListener('submit', await uploadData)
+		console.log(window.location)
+		node.querySelector('#href').innerText = window.location.href
+		node.querySelector('#pathname').innerText = window.location.pathname
+		node.querySelector('#search').innerText = window.location.search
+		node.querySelector('#hash').innerText = window.location.hash
 	} catch(err) {
 		console.error(err)
 	}

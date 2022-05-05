@@ -2,4 +2,5 @@ spa/uploads/*.jpeg
 spa/uploads/*.jpg
 spa/uploads/*.png
 spa/uploads/*.heic
+spa/uploads/doej-*
 .settings

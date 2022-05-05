@@ -40,8 +40,12 @@ export async function loadPage(page) {
 }
 
 export function getPageName(path = window.location.pathname) {
-	path = path.replace('/', '')
-	let page = path ? path : 'home'
+	console.log(window.location.origin)
+	const pathSegments = path.split('/')
+	pathSegments.shift() // remove the first empty string
+	const firstSegment = pathSegments[0] // get the first segment
+	console.log('firstSegment', firstSegment)
+	const page = firstSegment ? firstSegment : 'home'
 	console.log(`page: ${page}`)
 	return page
 }

@@ -134,6 +134,7 @@ async function staticFiles(context, next) {
 		context.response.headers.set('ETag', etag)
 		const ext = context.request.url.pathname.split('.').pop()
 		const mime = contentType(ext)
+		console.log(`mime-type: ${mime}`)
 		context.response.headers.set('Content-Type', mime)
 		await send(context, context.request.url.pathname, {
 			root: `${Deno.cwd()}/spa`,
