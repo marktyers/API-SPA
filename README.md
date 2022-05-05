@@ -1,3 +1,4 @@
+
 This template is to be used when developing a Single Page Application connected to a REST Web API.This
 
 There are two directories:
@@ -67,3 +68,7 @@ You will need to log in to the **mysql-client** CLI tool using the **root** acco
 If you get stuck your first step should be to see if this is a problem that others have already encountered. There is a comprehensive FAQ document that gives solutions to the most common problems.
 
 [Frequently-Asked Questions](https://docs.google.com/document/d/1b_lTA_ay0Yi46annuNnZ6fK1nIe_ddszmPua1Wwvfa0/edit?usp=sharing)
+
+![Creative Commons](https://i.creativecommons.org/l/by-nd/4.0/88x31.png)
+
+This work is licensed under a [Creative Commons Attribution-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nd/4.0/).
