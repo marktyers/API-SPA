@@ -98,21 +98,18 @@ export function file2DataURI(file) {
   })
 }
 
-/* FUNCTIONS TO MAKE API CALLS
- * all API calls support the JSON:API specification */
-
-export async function secureGet(url, token) {
-	console.log('secure get')
-	const options = {
-		method: 'GET',
-		headers: {
-			'Authorization': token,
-			'Content-Type': 'application/vnd.api+json',
-			'Accept': 'application/vnd.api+json'
-		}
-	}
-	console.log(options)
-	const response = await fetch(url, options)
-	const json = await response.json()
-	return { status: response.status, json: json }
+/* if you want to store the html for the different pages in separate
+files create a directory spa/html and create an html file with the 
+name of the page (no template element) then use this function to 
+generate the DOM fragment:
+example usage: const node = await fileToDomNode('foo') */
+export async function fileToDomNode(filename) {
+	console.log('filename', filename)
+	const path = `/html/${filename}.html`
+	console.log('path', path)
+	const html = await (await fetch(`/html/${filename}.html`)).text()
+	console.log('html', html)
+	const fragment = document.createRange().createContextualFragment(html)
+	console.log('fragment', fragment)
+	return fragment
 }
