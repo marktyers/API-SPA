@@ -3,7 +3,7 @@
 
 console.log('FOO')
 
-import { customiseNavbar, file2DataURI, loadPage, router, secureGet, showMessage } from '../util.js'
+import { customiseNavbar, file2DataURI, loadPage, router, showMessage } from '../util.js'
 
 export async function setup(node) {
 	console.log('FOO: setup')

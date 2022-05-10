@@ -1,7 +1,7 @@
 
 /* login.js */
 
-import { createToken, customiseNavbar, secureGet, loadPage, showMessage } from '../util.js'
+import { createToken, customiseNavbar, loadPage, showMessage } from '../util.js'
 
 export async function setup(node) {
 	try {
@@ -18,19 +18,29 @@ export async function setup(node) {
 async function login() {
 	event.preventDefault()
 	console.log('form submitted')
+
 	const formData = new FormData(event.target)
 	const data = Object.fromEntries(formData.entries())
 	const token = 'Basic ' + btoa(`${data.user}:${data.pass}`)
-	console.log('making call to secureGet')
-	const response = await secureGet('/api/accounts', token)
-	console.log(response)
+	const options = {
+		method: 'GET',
+		headers: {
+			'Authorization': token,
+			'Content-Type': 'application/vnd.api+json',
+			'Accept': 'application/vnd.api+json'
+		}
+	}
+	const response = await fetch('/api/accounts', options)
+	const json = await response.json()
+
 	if(response.status === 200) {
-		localStorage.setItem('username', response.json.data.username)
+		localStorage.setItem('username', json.data.username)
 		localStorage.setItem('authorization', token)
-		showMessage(`you are logged in as ${response.json.data.username}`)
+		showMessage(`you are logged in as ${json.data.username}`)
 		await loadPage('foo')
 	} else {
 		document.querySelector('input[name="pass"]').value = ''
-		showMessage(response.json.errors[0].detail)
-		}
+		showMessage(json.errors[0].detail)
+	}
+
 }
