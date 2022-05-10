@@ -3,7 +3,9 @@
 
 import app from './api/middleware.js'
 
-const port = 8080
+const defaultPort = 8080
+const envPort = Deno.env.get('PORT')
+const port = envPort ? Number(envPort) : defaultPort
 
 app.addEventListener('listen', ({ port }) => console.log(`listening on port: ${port}`))
 
