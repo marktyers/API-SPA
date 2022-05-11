@@ -2,8 +2,8 @@
 	"importMap": "import_map.json",
 	"tasks": {
 		"run": "deno run --allow-all index.js",
-		"integrationTests": "deno test --allow-all testing/integration/"
-		"unitTests": "deno test --allow-all --import-map testing/unit/import_map.json testing/unit/"
+		"integrationTests": "deno test --allow-all testing/integration/",
+		"unitTests": "deno test --allow-all --import-map testing/unit/import_map.json testing/unit/",
 		"testRoutes": "deno test --allow-all testing/routes/"
 	},
   "lint": {
