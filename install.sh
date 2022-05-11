@@ -125,6 +125,7 @@ else
   echo "export ACC=$ACC" >> ~/.profile
 	sudo groupadd $ACC
 	sudo chgrp -R $ACC * .[^.]*
+	sudo chgrp -R $ACC .git
 fi
 
 if grep clear ~/.profile
