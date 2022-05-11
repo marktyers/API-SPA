@@ -66,7 +66,7 @@ sudo add-apt-repository -y ppa:git-core/ppa
 sudo apt update -y
 sudo apt upgrade -y
 
-sudo apt install -y psmisc lsof tree build-essential gcc g++ make jq curl git unzip inotify-tools dnsutils lcov tilde
+sudo apt install -y psmisc lsof tree build-essential gcc g++ make jq curl git unzip inotify-tools dnsutils lcov tilde bash-completion
 sudo apt autoremove -y
 
 echo
@@ -114,6 +114,17 @@ then
 else
   echo "path to deno executable needs adding"
   echo "PATH='$PATH:$HOME/.deno/bin'" >> ~/.profile
+fi
+
+if grep ACC ~/.profile
+then
+  echo "group env var already set"
+else
+  echo "group env var needs adding"
+	ACC="A"$RANDOM
+  echo "export ACC=$ACC" >> ~/.profile
+	sudo groupadd $ACC
+	sudo chgrp -R $ACC * .[^.]*
 fi
 
 if grep clear ~/.profile
