@@ -102,30 +102,30 @@ echo
 echo "========= CUSTOMISING SHELL PROMPT =========="
 if grep PS1 ~/.profile
 then
-  echo "correct prompt found"
+	echo "correct prompt found"
 else
-  echo "prompt needs updating"
-  echo "PS1='$ '" >> ~/.profile
+	echo "prompt needs updating"
+	echo "PS1='$ '" >> ~/.profile
 fi
 
 if grep deno ~/.profile
 then
-  echo "path to deno executable found"
+	echo "path to deno executable found"
 else
-  echo "path to deno executable needs adding"
-  echo "PATH='$PATH:$HOME/.deno/bin'" >> ~/.profile
+	echo "path to deno executable needs adding"
+	echo "PATH='$PATH:$HOME/.deno/bin'" >> ~/.profile
 fi
 
 if grep ACC ~/.profile
 then
-  echo "group env var already set"
+	echo "group env var already set"
 else
-  echo "group env var needs adding"
+	echo "group env var needs adding"
 	ACC="A"$RANDOM
-  echo "export ACC=$ACC" >> ~/.profile
+	echo "export ACC=$ACC" >> ~/.profile
 	sudo groupadd $ACC
-	sudo chgrp -R $ACC . .. * .[^.]*
-	sudo chgrp -R $ACC .git
+	sudo chgrp -R $ACC . .. * .[^.]* .git
+	sudo chmod g+s . .. api api/modules .git .githooks spa spa/js spa/style spa/uploads testing testing/integration testing/routes testing/unit testing/unit/mocks
 fi
 
 if grep clear ~/.profile
