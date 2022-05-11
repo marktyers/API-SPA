@@ -124,7 +124,7 @@ else
 	ACC="A"$RANDOM
   echo "export ACC=$ACC" >> ~/.profile
 	sudo groupadd $ACC
-	sudo chgrp -R $ACC * .[^.]*
+	sudo chgrp -R $ACC . .. * .[^.]*
 	sudo chgrp -R $ACC .git
 fi
 
