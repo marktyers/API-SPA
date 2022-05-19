@@ -24,18 +24,14 @@ async function checkContentType(context, next) {
 	context.response.headers.set('content-type', 'application/vnd.api+json')
 	if(contentType !== 'application/vnd.api+json') {
 		console.log('wrong Content-Type')
-		context.response.status = 415
-		context.response.body = JSON.stringify(
-			{
-				errors: [
-					{
-						title: '415 Unsupported Media Type',
-						detail: 'This API supports the JSON:API specification, Content-Type must be application/vnd.api+json'
-					}
-				]
-			}
-			, null, 2)
-			return
+		const data = {
+			code: 415,
+			title: '415 Unsupported Media Type',
+			detail: 'This API supports the JSON:API specification, Content-Type must be application/vnd.api+json'
+		}
+		const err = new Error()
+		err.data = data
+		throw err
 	}
 
 	await next()
@@ -62,18 +58,14 @@ async function authHeaderPresent(context, next) {
 
 	if(context.request.headers.get('Authorization') === null) {
 		console.log('missing Authorization header')
-		context.response.status = 401
-		context.response.body = JSON.stringify(
-			{
-				errors: [
-					{
-						title: '201 Unauthorized',
-						detail: 'the API uses HTTP Basic Auth and requires a correctly-formatted Authorization header'
-					}
-				]
-			}
-		, null, 2)
-		return
+		const data = {
+			code: 401,
+			title: '401 Unauthorized',
+			detail: 'the API uses HTTP Basic Auth and requires a correctly-formatted Authorization header'
+		}
+		const err = new Error()
+		err.data = data
+		throw err
 	}
 
 	await next()
@@ -104,21 +96,14 @@ async function validCredentials(context, next) {
 		console.log(credentials)
 		await login(credentials)
 	} catch(err) {
-		console.log('ERROR')
+		console.log('Authentication Error')
 		console.log(err)
-		console.log(`msg: ${err.message}`)
-		context.response.status = 401
-		context.response.body = JSON.stringify(
-			{
-				errors: [
-					{
-						title: '401 Unauthorized!',
-						detail: err.message
-					}
-				]
-			}
-			, null, 2)
-		return
+		err.data = {
+			code: err.data.code || 401,
+			title: err.data.title || '401 Unauthorized',
+			detail: err.data.detail || err.message
+		}
+		throw err
 	}
 
 	await next()
@@ -145,20 +130,29 @@ async function staticFiles(context, next) {
 }
 
 async function errorHandler(context, next) {
+	console.log('middleware: errorHandler')
   try {
-    const method = context.request.method;
-    const path = context.request.url.pathname;
-    console.log(`\n${method} ${path}`);
-    await next();
+    const method = context.request.method
+    const path = context.request.url.pathname
+    console.log(`\n${method} ${path}`)
+    await next()
   } catch (err) {
-    console.log(err)
-    context.response.status = Status.InternalServerError
+	console.log('ERROR: errorHandler')
+	console.log(err)
+	if(err.data === undefined) {
+		err.data = {
+			code: Status.InternalServerError,
+			title: '500 Internal Server error',
+			details: err.message
+		}
+	}
+		context.response.status = err.data.code
 		context.response.body = JSON.stringify(
 			{
 				errors: [
 					{
-						title: '500 Internal Server error',
-						detail: err.message
+						title: err.data.title,
+						detail: err.data.detail
 					}
 				]
 			}

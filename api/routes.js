@@ -31,17 +31,12 @@ router.get('/api/accounts', async context => {
 				data: { username }
 			}, null, 2)
 	} catch(err) {
-		context.response.status = 401
-		context.response.body = JSON.stringify(
-			{
-				errors: [
-					{
-						title: '401 Unauthorized.',
-						detail: err.message
-					}
-				]
-			}
-		, null, 2)
+		err.data = {
+			code: 401,
+			title: '401 Unauthorized',
+			detail: err.message
+		}
+		throw err
 	}
 })
 
@@ -73,17 +68,12 @@ router.post('/api/files', async context => {
 			}
 		)
 	} catch(err) {
-		context.response.status = 400
-		context.response.body = JSON.stringify(
-			{
-				errors: [
-					{
-						title: 'a problem occurred',
-						detail: err.message
-					}
-				]
-			}
-		)
+		err.data = {
+			code: 500,
+			title: '500 Internal Server Error',
+			detail: err.message
+		}
+		throw err
 	}
 })
 

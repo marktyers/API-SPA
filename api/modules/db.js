@@ -24,6 +24,17 @@ const connectionData = {
 const conn = connectionData[home]
 // console.log(conn)
 
-const db = await new Client().connect(conn)
+let db
+try {
+	db = await new Client().connect(conn)
+	console.log('connection to database established')
+} catch(err) {
+	err.data = {
+		code: 500,
+		title: ' 500 Internal Server Error',
+		detail: 'the API database is currently down'
+	}
+	throw err
+}
 console.log('connection to database established')
 export { db }
