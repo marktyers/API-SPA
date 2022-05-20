@@ -92,7 +92,7 @@ sudo /etc/init.d/mysql restart
 echo
 echo "====== INSTALLING ${green}DENO${reset} ======"
 # version 1.7.1 works!
-curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.20.3
+curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.22.0
 
 echo
 echo "===== INSTALLING ${green}HEROKU${reset} TOOL ====="
