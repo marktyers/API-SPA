@@ -21,6 +21,9 @@ export async function setup(node) {
 
 // this example loads the data from a JSON file stored in the uploads directory
 async function addContent(node) {
+	// show "LOADING" message
+	document.querySelector('aside > p').innerText = 'LOADING'
+	document.querySelector('aside').classList.remove('hidden')
 	const response = await fetch('/uploads/quotes.json')
 	const quotes = await response.json()
 	const template = document.querySelector('template#quote')
@@ -30,4 +33,6 @@ async function addContent(node) {
 		fragment.querySelector('p').innerText = quote.quote
 		node.appendChild(fragment)
 	}
+	// hide "LOADING" message
+	document.querySelector('aside').classList.add('hidden')
 }
