@@ -154,9 +154,19 @@ touch /home/codio/log.csv
 sudo chmod 775 /home/codio/log.csv
 
 # set up the crontab job in the sudo crontab needs to be run as root
-sudo -s <<EOF
-(crontab -l ; echo "*/5 * * * * /home/codio/logger.sh")| crontab -
-EOF
+# sudo -s <<EOF
+# (crontab -l ; echo "*/5 * * * * /home/codio/logger.sh")| crontab -
+# EOF
+echo
+echo "====== ADDING CRONTAB ======"
+cron_entry=$(crontab -l 2>&1)
+is_in_cron='logger.sh'
+new_cron_entry='*/5 * * * * /home/codio/logger.sh'
+# only add the crontab if it has not already been installed
+if [[ $cron_entry != *"$is_in_cron"* ]]; then
+	echo "crontab missing"
+	printf '%s\n' "$cron_entry" "$new_cron_entry" | crontab -
+fi
 
 sudo service cron reload
 
