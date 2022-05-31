@@ -3,7 +3,7 @@
 
 import { etag } from 'oak'
 import { Base64 } from 'bb64'
-import { Md5 } from 'md5'
+// import { Md5 } from 'md5'
 
 export function extractCredentials(token) {
 	if(token === undefined) throw new Error('no auth header')

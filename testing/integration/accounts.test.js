@@ -12,7 +12,7 @@ Deno.test({
 			const data = { user: 'doej', pass: 'p455w0rd'}
 			const user = await login(data)
 			assertEquals(user, 'doej', 'invalid username returned')
-		} catch(err) {
+		} catch() {
 			fail('error thrown')
 		}
 	},
