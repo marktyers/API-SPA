@@ -165,7 +165,7 @@ new_cron_entry='*/5 * * * * /home/codio/logger.sh'
 # only add the crontab if it has not already been installed
 if [[ $cron_entry != *"$is_in_cron"* ]]; then
 	echo "crontab missing"
-	printf '%s\n' "$cron_entry" "$new_cron_entry" | crontab -
+	sudo printf '%s\n' "$cron_entry" "$new_cron_entry" | crontab -
 fi
 
 sudo service cron reload
