@@ -20,11 +20,19 @@ export async function router() {
 	while (article.lastChild) article.removeChild(article.lastChild) // remove any content from the article element
 	article.appendChild(node) // insert the DOM fragment into the page
 	// make sure any links added to the content trigger the SPA router script
-	document.querySelectorAll('main a').forEach(element => element.addEventListener('click', async event => {
-		event.preventDefault()
-		history.pushState(null, null, event.target.href)
-		await router()
-	}))
+	document.querySelectorAll('main a').forEach(element => {
+		// console.log(window.location.origin)
+		console.log(element.href)
+		if(element.href.includes(window.location.origin)) {
+			console.log('relative link')
+			element.addEventListener('click', async event => {
+				event.preventDefault()
+				history.pushState(null, null, event.target.href)
+				await router()
+			})
+		}
+		
+	})
 	highlightNav(page)
 	article.id = page
 }
